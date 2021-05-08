@@ -23,7 +23,6 @@ class RateLimiter {
                 _this.redisClient.get(userId, function (err, record) {
                     if (err) throw err;
                     const currentRequestTime = new moment();
-                    console.log(record);
                     //  if no record is found , create a new record for user and store to redis
                     if (record == null) {
                         let newRecord = [];
@@ -43,7 +42,6 @@ class RateLimiter {
                     let requestsWithinWindow = data.filter(entry => {
                         return entry.requestTimeStamp > windowStartTimestamp;
                     });
-                    console.log('requestsWithinWindow', requestsWithinWindow);
                     let totalWindowRequestsCount = requestsWithinWindow.reduce((accumulator, entry) => {
                         return accumulator + entry.requestCount;
                     }, 0);
